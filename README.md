@@ -34,9 +34,8 @@ Replace `<tag>` with `latest` to get the latest version of the Docker image with
 
 > `docker container run -e P="myproject" --network host --name myproject -it --mount type=bind,source="$(pwd)",target=/app sageil/crewai:latest bash`
 
-2. Edit the `.env` and add any random string to the variable `OPENAI_API_KEY`.
 
-3. Add the following to the *top* of `crew.py` found in `<project-name>src/<project-name>crew.py` file to use the local model by replacing `base_url` and `model` with your local model name and path or IP address and port if needed. For example:
+2. Add the following to the *top* of `crew.py` found in `<project-name>src/<project-name>crew.py` file to use the local model by replacing `base_url` and `model` with your local model name and path or IP address and port if needed. For example:
 
 ```python
 from langchain_openai import ChatOpenAI
@@ -46,7 +45,7 @@ llm = ChatOpenAI(
 )
 ```
 
-4. Add your llm to all agents
+3. Add your llm to all agents
 
 ```python
  @agent
@@ -58,9 +57,9 @@ llm = ChatOpenAI(
         )
   ```
 
-5. From the terminal, run `poetry run <project-name>` to run your crew
+4. From the terminal, run `poetry run <project-name>` to run your crew
 
-6. You can start the container to resume working by running `docker container start -ai <container-name>`
+5. You can start the container to resume working by running `docker container start -ai <container-name>`
 
 ## Using the image with remote models
 
@@ -75,6 +74,11 @@ if you prefer to use your local filesystem or
 ```bash
 docker run -it --network host --name <container-name> -e P=<project-name> sageil/crewai:<tag> bash
 ```
+2. Edit the `.env` the `OPENAI_API_KEY` value to add your API_KEY (You can view dotfiles in neovim by pressing `H` on your keyboard)
+
+3. Modify the default agents provided by crewai default project 
+
+4. Run your agent using `poetry run <project-name>`
 
 ## Additional Tools
 
