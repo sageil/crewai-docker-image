@@ -11,7 +11,7 @@ The image includes all necessary dependencies required to create CrewAI agents, 
 - **neoVim** Latest stable version built from source [neovim](https://github.com/neovim/neovim)
 - **poetry** Dependency management tool for Python projects [poetry](https://python-poetry.org/)
 - **lazyVim** A highly optimized Vim-like editor for Neovim [lazyvim](https://www.lazyvim.org/)
-- **crewAI** Platform for Multi AI Agents Systems [official CrewAI documentation](https://docs.crewai.io/)
+- **crewAI** Platform for Multi AI Agents Systems [official CrewAI documentation](https://docs.crewai.com/)
 
 ## Using the image with local models
 >
