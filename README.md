@@ -1,4 +1,9 @@
 # CrewAI Agents Docker Image
+## Motivation
+
+This Docker image provides a convenient way to create and run CrewAI agents without having to install Python dependencies or set up a virtual environment manually. It simplifies the process of managing agent projects by encapsulating all necessary components within a single container, making it easy to share and deploy across different environments.
+
+It also provides a safe way to execute llms generated source code by providing a sandboxed environment where sensitive operations can be performed without affecting the host system's configuration or data.
 
 ## Overview
 
@@ -45,7 +50,7 @@ llm = ChatOpenAI(
 )
 ```
 
-3. Add your llm to all agents
+3. Add your llm to ***all*** agents
 
 ```python
  @agent
@@ -61,7 +66,7 @@ llm = ChatOpenAI(
 
 5. You can start the container to resume working by running `docker container start -ai <container-name>`
 
-## Using the image with remote models
+## Using the image with remote models/APIs
 
 1. Run the image using
 
@@ -99,6 +104,12 @@ The image supports linux/amd64 and linux/arm64 architectures and was tested agai
 ## License
 
 This project is licensed under the [MIT License](https://github.com/sageil/crewai-docker-image/blob/main/LICENSE.md).
+
+## Issues
+1. Copying from nvim fails due to display driver
+
+Please report other issues you encounter on the [Issues](https://github.com/sageil/crewai-docker-image/issues) including steps to reproduce them.
+
 
 Enjoy using the CrewAI Agent Docker Image!
 
