@@ -50,7 +50,7 @@ RUN git clone https://github.com/LazyVim/starter /home/appuser/.config/nvim && r
 COPY options.lua /home/appuser/.config/nvim/lua/config/options.lua
 COPY lazy.lua /home/appuser/.config/nvim/lua/config/lazy.lua
 COPY treesitter.lua /home/appuser/.config/nvim/lua/plugins/treesitter.lua
-RUN timeout 200s nvim || true
+RUN timeout 20s nvim || true
 ENV PATH="/home/appuser/.local/bin:$PATH"
 RUN mkdir -p "$HOME/.local"
 WORKDIR /app/
