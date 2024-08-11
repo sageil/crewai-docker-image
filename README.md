@@ -94,7 +94,7 @@ The image supports linux/amd64 and linux/arm64 architectures and was tested agai
 
 ## License
 
-This project is licensed under the [MIT License](https://github.com/sageil/crewai-docker-image/blob/main/LICENSE).
+This project is licensed under the [MIT License](https://github.com/sageil/crewai-docker-image/blob/main/LICENSE.md).
 
 Enjoy using the CrewAI Agent Docker Image!
 
