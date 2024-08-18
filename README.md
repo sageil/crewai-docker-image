@@ -7,7 +7,7 @@ It also provides a safe way to execute llms generated source code by providing a
 
 ## Overview
 
-This Docker image is designed to create, edit, and run agents projects using the CrewAI framework. The container accepts an environment variable specifying the project name, with `default_crew` as the default name for the first project, if no project name is provided using the `-e P` enironment variable when the running the container.
+This Docker image is designed to create, edit, and run agents projects using the CrewAI framework. The container accepts an environment variable specifying the project name, with `default_crew` as the default name for the first project, if no project name is provided using the `-e P` environment variable when the running the container.
 
 The image includes all necessary dependencies required to create CrewAI agents, as well as other development tools and editors to ease the development of agents within the container without the need to mount local file system.
 
@@ -85,16 +85,19 @@ docker run -it --network host --name <container-name> -e P=<project-name> sageil
 
 4. Run your agent using `poetry run <project-name>`
 
-## Additional Tools
+## Additional Tools & aliases
 
-To create a new project while inside the container, run `newcrew <project_name>` command to create a new project inside the container workspace. This will generate all necessary files and directories for your project, including configuration files, source code, and other resources.
+1. `newcrew`. Execute ``newcrew <project_name>`  To create a new project while inside the container. The command generate all necessary files, directories and install dependencies.
+
+2. Both nvim and vim are aliased to `v`
 
 > [!TIP]  
-> To use the installed nevim to edit your project, run `nvim .` inside your project directory to open the project in neovim editor. Use your `space` key followed by `e` to view the project tree structure.
->
+> To use the installed nevim to edit your project, run `nvim .` or `v .` inside your project directory to open the project in neovim editor. Use your `space` key followed by `e` to view the project tree structure. <br/>
+> [LazyVim Keymaps](https://www.lazyvim.org/keymaps)
+
 ## Supported Architectures
 
-The image supports linux/amd64 and linux/arm64 architectures and was tested against MAC M2 with Apple silicon and multiple Linux distributions
+The image supports linux/amd64 and linux/arm64 architectures and was tested against MAC M2 with Apple silicon and multiple Linux distributions.
 
 ## Screen Captures
 
@@ -106,10 +109,13 @@ The image supports linux/amd64 and linux/arm64 architectures and was tested agai
 This project is licensed under the [MIT License](https://github.com/sageil/crewai-docker-image/blob/main/LICENSE.md).
 
 ## Issues
+Known issues:
+
 1. Copying from nvim fails due to display driver
 
-Please report other issues you encounter on the [Issues](https://github.com/sageil/crewai-docker-image/issues) including steps to reproduce them.
+New Issues:
 
+Please report other issues you encounter on the [Issues](https://github.com/sageil/crewai-docker-image/issues) including steps to reproduce them.
 
 Enjoy using the CrewAI Agent Docker Image!
 
