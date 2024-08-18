@@ -99,6 +99,9 @@ docker run -it --network host --name <container-name> -e P=<project-name> sageil
 
 The image supports linux/amd64 and linux/arm64 architectures and was tested against MAC M2 with Apple silicon and multiple Linux distributions.
 
+## Example Projects
+
+[Veterinary Assistant Crew](https://github.com/sageil/veterinary_assistant)
 ## Screen Captures
 
 ![Editor](assets/nvim-main.png)
