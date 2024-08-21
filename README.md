@@ -1,7 +1,7 @@
 # CrewAI Agents Docker Image
 
 - [Motivation](#motivation)
-- [prerequisites](#prerequisites)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Tools](#tools)
