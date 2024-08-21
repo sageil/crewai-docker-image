@@ -1,124 +1,98 @@
 # CrewAI Agents Docker Image
+
+- [Motivation](#motivation)
+- [prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Tools](#tools)
+- [Tips](#tips)
+- [Example Projects](#examples)
+- [Screen Captures](#ScreenCaptures)
+- [Issues](#issues)
+- [License](#license)
+
 ## Motivation
 
-This Docker image provides a convenient way to create and run CrewAI agents without having to install Python dependencies or set up a virtual environment manually. It simplifies the process of managing agent projects by encapsulating all necessary components within a single container, making it easy to share and deploy across different environments.
+This Docker image provides a convenient way to create and run CrewAI agents without having to install Python dependencies or set up a virtual environment manually. It simplifies the process of managing agent projects by encapsulating all necessary components within a single container, making it easy to share and deploy across different environments and makes an ideal environment in which to run agents to generate and execute code. I used [ollama](https://ollama.com/)
 
-It also provides a safe way to execute llms generated source code by providing a sandboxed environment where sensitive operations can be performed without affecting the host system's configuration or data.
+## Prerequisites
+- Docker
+- Basic knowledge of python
+- Basic knowledge of crewAI and langchain
+- Desire to learn and have fun
+- Ollama installed locally or access to remote AI services like chatGPT
 
-## Overview
+## Usage
+#### Method 1: using a ollama locally
+1. Run the following command after replacing <container-name> with the name of your container, <project-name> with the name of your project and <tag> with the tag of the image you want to use. [available tags](https://hub.docker.com/r/sageil/crewai/tags)
 
-This Docker image is designed to create, edit, and run agents projects using the CrewAI framework. The container accepts an environment variable specifying the project name, with `default_crew` as the default name for the first project, if no project name is provided using the `-e P` environment variable when the running the container.
+```bash
+docker run -it --network host --name <container-name> -e P=<project-name> sageil/crewai:<tag> bash
+```
+2. From your container shell, navigate to your project directory/src/crew.py and import `Ollama` by adding `from langchain_community.llms import Ollama`
+3. Configure your crew to use your local llm by adding 
 
-The image includes all necessary dependencies required to create CrewAI agents, as well as other development tools and editors to ease the development of agents within the container without the need to mount local file system.
+```python
+ myllm = Ollama(model="openhermes:v2.5", base_url="http://host.docker.internal:11434", temperature=0)
+```
+4. Change the model and the temperature in the above snippet to your desired llm model
+5. Add the llm property to your agents by adding `llm=myllm` 
+```python
+    @agent
+    def researcher(self) -> Agent:
+        return Agent(
+            config=self.agents_config['researcher'],
+            # tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
+            verbose=True, # Print out all actions
+            llm=myllm
+        )
 
-## Included Tools
+```
+6. Run your crew by executing `poetry run <project_name>`
+
+#### Method 2: using remote services like chatGPT
+1. Set your OPENAI API key `os.environ["OPENAI_API_KEY"] = "YOUR_KEY"`
+2. Set your chatGPT model `os.environ["CHATGPT_MODEL"] = "YOUR_MODEL`
+3. Add the llm property to your agents by adding `llm=ChatOpenAI()`
+4. Run your crew by executing `poetry run <project_name>`
+
+In both methods, you can also use a local mount from your host to the container by change the docker container run command with 
+`docker container run -e P="myproject" --network host --name myproject -it --mount type=bind,source="$(pwd)",target=/app sageil/crewai:latest bash`
+
+> [!TIP]  
+> When working with remote services, you can also remove the --network host part of the command as its only required to allow
+> the container access to the host's network.
+
+## Tools
 
 - **neoVim** Latest stable version built from source [neovim](https://github.com/neovim/neovim)
 - **poetry** Dependency management tool for Python projects [poetry](https://python-poetry.org/)
 - **lazyVim** A highly optimized Vim-like editor for Neovim [lazyvim](https://www.lazyvim.org/)
 - **crewAI** Platform for Multi AI Agents Systems [official CrewAI documentation](https://docs.crewai.com/)
 
-## Using the image with local models
->
-> [!IMPORTANT]  
-> The steps below assume you have a local model available and configured for use with CrewAI. Ensure that your local model is accessible within the container's environment.
-> [ollama](https://ollama.com/) is a great tool to use for local models.
+## Tips 
+- v: `alias v='nvim` & `alias vim='nvim'`
+- Running `newcrew <project_name>` will create a new crew project with the provided name.
+- You can restart a container after stopping it by using `docker container start -ai <container-name>`
 
-1. Run the container using the following command:
-
-```bash
-docker run -it --network host --name <container-name> -e P=<project-name> sageil/crewai:<tag> bash
-```
-
-Replace `<container-name>` with a desired name for your container, and `<project-name>` with the name of the project you wish to create within CrewAI. If you do not provide a project name, the container will default to using `default_crew`. You can find the latest image tag by checking the Docker Hub repository [sageil/crewai](https://hub.docker.com/r/sageil/crewai/tags).
-
-Replace `<tag>` with `latest` to get the latest version of the Docker image with the latest crewAI framework and tools. You can find other versions by checking the Docker Hub repository
-
-> [!TIP]  
-> If you prefer to work on your project using a locally installed editor, use the --mount option to bind your local directory to the container's workspace. This allows you to edit files directly within your local environment while still leveraging the container for development purposes.
-
-> `docker container run -e P="myproject" --network host --name myproject -it --mount type=bind,source="$(pwd)",target=/app sageil/crewai:latest bash`
-
-
-2. Add the following to the *top* of `crew.py` found in `<project-name>src/<project-name>crew.py` file to use the local model by replacing `base_url` and `model` with your local model name and path or IP address and port if needed. For example:
-
-```python
-from langchain_openai import ChatOpenAI
-
-llm = ChatOpenAI(
-    model="mistral:latest", base_url="http://host.docker.internal:11434/v1"
-)
-```
-
-3. Add your llm to ***all*** agents
-
-```python
- @agent
-    def researcher(self) -> Agent:
-        return Agent(
-            config=self.agents_config["researcher"],
-            verbose=False,
-            llm=llm,
-        )
-  ```
-
-4. From the terminal, run `poetry run <project-name>` to run your crew
-
-5. You can start the container to resume working by running `docker container start -ai <container-name>`
-
-## Using the image with remote models/APIs
-
-1. Run the image using
-
-```bash
-docker container run -e P="myproject" --name myproject -it --mount type=bind,source="$(pwd)",target=/app sageil/crewai:latest bash
-```
-
-if you prefer to use your local filesystem or
-
-```bash
-docker run -it --network host --name <container-name> -e P=<project-name> sageil/crewai:<tag> bash
-```
-2. Edit the `.env` the `OPENAI_API_KEY` value to add your API_KEY (You can view dotfiles in neovim by pressing `H` on your keyboard)
-
-3. Modify the default agents provided by crewai default project 
-
-4. Run your agent using `poetry run <project-name>`
-
-## Additional Tools & aliases
-
-1. `newcrew`. Execute ``newcrew <project_name>`  To create a new project while inside the container. The command generate all necessary files, directories and install dependencies.
-
-2. Both nvim and vim are aliased to `v`
-
-> [!TIP]  
-> To use the installed nevim to edit your project, run `nvim .` or `v .` inside your project directory to open the project in neovim editor. Use your `space` key followed by `e` to view the project tree structure. <br/>
-> [LazyVim Keymaps](https://www.lazyvim.org/keymaps)
-
-## Supported Architectures
-
-The image supports linux/amd64 and linux/arm64 architectures and was tested against MAC M2 with Apple silicon and multiple Linux distributions.
-
-## Example Projects
+## Example
 
 [Veterinary Assistant Crew](https://github.com/sageil/veterinary_assistant)
-## Screen Captures
+
+## ScreenCaptures
 
 ![Editor](assets/nvim-main.png)
 ![Code](assets/code-action.png)
-
-## License
-
-This project is licensed under the [MIT License](https://github.com/sageil/crewai-docker-image/blob/main/LICENSE.md).
 
 ## Issues
 Known issues:
 
 1. Copying from nvim fails due to display driver
+2. Icon fonts are not rendered correctly in the container's terminal? [Watch](https://www.youtube.com/watch?v=mQdB_kHyZn8)
 
 New Issues:
 
 Please report other issues you encounter on the [Issues](https://github.com/sageil/crewai-docker-image/issues) including steps to reproduce them.
 
-Enjoy using the CrewAI Agent Docker Image!
-
+## License
+This project is licensed under the [MIT License](https://github.com/sageil/crewai-docker-image/blob/main/LICENSE.md).
