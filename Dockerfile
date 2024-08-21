@@ -60,14 +60,8 @@ USER appuser
 SHELL ["/bin/bash", "--login", "-i", "-c"]
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
 RUN nvm install 20
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN git clone https://github.com/LazyVim/starter /home/appuser/.config/nvim && rm -rf /home/appuser/.config/nvim/.git
-COPY options.lua /home/appuser/.config/nvim/lua/config/options.lua
-COPY lazy.lua /home/appuser/.config/nvim/lua/config/lazy.lua
-COPY treesitter.lua /home/appuser/.config/nvim/lua/plugins/treesitter.lua
-RUN timeout 180s nvim || true
+RUN mkdir -p "/home/appuser/.local/bin"
 ENV PATH="/home/appuser/.local/bin:$PATH"
-RUN mkdir -p "$HOME/.local"
 WORKDIR /app/
 RUN chown -R appuser:appgroup "/app/"
 RUN python -m pip install --upgrade pip && curl -sSL https://install.python-poetry.org | python3 -  && \ 
@@ -75,8 +69,11 @@ RUN python -m pip install --upgrade pip && curl -sSL https://install.python-poet
   poetry completions bash >> ~/.bash_completion && echo "source /shell_venv.sh" >> ~/.bashrc && \
   echo "source /add_crew.sh" >> ~/.bashrc && echo "alias v='nvim'" >> ~/.bashrc && \
   echo "alias vim='nvim'" >> ~/.bashrc
-
-
+RUN git clone https://github.com/LazyVim/starter /home/appuser/.config/nvim && rm -rf /home/appuser/.config/nvim/.git
+COPY options.lua /home/appuser/.config/nvim/lua/config/options.lua
+COPY lazy.lua /home/appuser/.config/nvim/lua/config/lazy.lua
+COPY treesitter.lua /home/appuser/.config/nvim/lua/plugins/treesitter.lua
+RUN timeout 200s nvim || true
 ENTRYPOINT [ "/entrypoint.sh" ]
 
 
