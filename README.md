@@ -20,8 +20,8 @@ This Docker image provides a convenient way to create and run CrewAI agents with
 - Docker
 - Basic knowledge of python
 - Basic knowledge of crewAI and langchain
-- Desire to learn and have fun
 - Ollama installed locally or access to remote AI services like chatGPT
+- Desire to learn and have fun
 
 ## Usage
 #### Method 1: using a ollama locally
@@ -81,7 +81,7 @@ In both methods, you can also use a local mount from your host to the container 
 
 ## Tips 
 - v: `alias v='nvim` & `alias vim='nvim'`
-- Running `newcrew <project_name>` will create a new crew project with the provided name.
+- Running `newcrew <project_name>` will create a new crew project with the provided name, install dependencies and configure the project virtual environment.
 - You can restart a container after stopping it by using `docker container start -ai <container-name>`
 
 ## Example
