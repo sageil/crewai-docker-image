@@ -5,6 +5,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Tools](#tools)
+- [Supported Versions](#versions)
 - [Tips](#tips)
 - [Example Projects](#examples)
 - [Screen Captures](#ScreenCaptures)
@@ -69,6 +70,13 @@ In both methods, you can also use a local mount from your host to the container 
 - **poetry** Dependency management tool for Python projects [poetry](https://python-poetry.org/)
 - **lazyVim** A highly optimized Vim-like editor for Neovim [lazyvim](https://www.lazyvim.org/)
 - **crewAI** Platform for Multi AI Agents Systems [official CrewAI documentation](https://docs.crewai.com/)
+
+## Versions
+
+[Available Images](https://hub.docker.com/r/sageil/crewai/tags)
+- **crewAI** 0.36.0 && **crewai-tools** 0.4.26
+- **crewAI** 0.41.1 **crewai-tools** 0.4.26
+- **crewAI** 0.51.0 **crewai-tools** 0.8.3
 
 ## Tips 
 - v: `alias v='nvim` & `alias vim='nvim'`
