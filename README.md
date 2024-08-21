@@ -30,6 +30,10 @@ This Docker image provides a convenient way to create and run CrewAI agents with
 ```bash
 docker run -it --network host --name <container-name> -e P=<project-name> sageil/crewai:<tag> bash
 ```
+replace *container-name* with the name of your container,  *project-name* with the name of your project and  <tag> with the tag of the image you want to use. [available tags](https://hub.docker.com/r/sageil/crewai/tags)
+> [!TIP]  
+> if you leave out the `P` empty of completely remove `e P=<project_name>` from the command, a default crew will be created with the name default_crew.
+
 2. From your container shell, navigate to your project directory/src/crew.py and import `Ollama` by adding `from langchain_community.llms import Ollama`
 3. Configure your crew to use your local llm by adding 
 
