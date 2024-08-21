@@ -97,7 +97,7 @@ In both methods, you can also use a local mount from your host to the container 
 Known issues:
 
 1. Copying from nvim fails due to display driver
-2. Icon fonts are not rendered correctly in the container's terminal? [Watch](https://www.youtube.com/watch?v=mQdB_kHyZn8)
+2. Icon fonts are not rendered correctly in the container's terminal? [Watch](https://www.youtube.com/watch?v=mQdB_kHyZn8). if the video peaked your interest in [Wezterm](https://wezfurlong.org/wezterm/index.html), you can use my configuration from [Wezterm configs](https://github.com/sageil/wezterm)
 
 New Issues:
 
