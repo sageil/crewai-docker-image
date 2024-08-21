@@ -74,9 +74,10 @@ In both methods, you can also use a local mount from your host to the container 
 ## Versions
 
 [Available Images](https://hub.docker.com/r/sageil/crewai/tags)
-- **crewAI** 0.36.0 && **crewai-tools** 0.4.26
-- **crewAI** 0.41.1 **crewai-tools** 0.4.26
 - **crewAI** 0.51.0 **crewai-tools** 0.8.3
+- **crewAI** 0.41.1 **crewai-tools** 0.4.26
+- **crewAI** 0.36.0 && **crewai-tools** 0.4.26
+
 
 ## Tips 
 - v: `alias v='nvim` & `alias vim='nvim'`
