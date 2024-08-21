@@ -7,10 +7,10 @@ setup() {
   if [ ! -d "$P" ]; then
     poetry config virtualenvs.in-project true
     echo -e "${YELLOW}Creating $P in $PWD${RESET}"
-    crewai create "$P"
+    crewai create crew "$P"
     echo -e "${YELLOW}Changing directory to $P${RESET}"
     cd "$P" || exit
-    echo -e "${YELLOW}Runnning poetry lock${RESET}"
+    echo -e "${YELLOW}Running poetry lock${RESET}"
     poetry lock
     echo -e "${YELLOW}Installing dependencies${RESET}"
     poetry install

@@ -7,7 +7,7 @@ newcrew() {
     deactivate
     poetry config virtualenvs.in-project true
     echo -e "${YELLOW} Creating $PROJECT${RESET}"
-    crewai create "$PROJECT"
+    crewai create crew "$PROJECT"
     cd $PWD/$PROJECT
     poetry lock
     poetry install
