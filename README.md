@@ -14,7 +14,7 @@
 
 ## Motivation
 
-This Docker image provides a convenient way to create and run CrewAI agents without having to install Python dependencies or set up a virtual environment manually. It simplifies the process of managing agent projects by encapsulating all necessary components within a single container, making it easy to share and deploy across different environments and makes an ideal environment in which to run agents to generate and execute code. I used [ollama](https://ollama.com/)
+This Docker image provides a convenient & secure way to create and run CrewAI agents without having to install any dependencies locally. I created the image to experiment with local [ollama](https://ollama.com/) code generation and execution.
 
 ## Prerequisites
 - Docker
@@ -25,23 +25,23 @@ This Docker image provides a convenient way to create and run CrewAI agents with
 
 ## Usage
 #### Method 1: using a ollama locally
-1. Run the following command after replacing <container-name> with the name of your container, <project-name> with the name of your project and <tag> with the tag of the image you want to use. [available tags](https://hub.docker.com/r/sageil/crewai/tags)
+1. Run the following command after replacing `container-name` with the name of your container, `project-name` with the name of your project and `tag` with the [tag](https://hub.docker.com/r/sageil/crewai/tags) of the image you want to use.
 
 ```bash
 docker run -it --network host --name <container-name> -e P=<project-name> sageil/crewai:<tag> bash
 ```
-replace *container-name* with the name of your container,  *project-name* with the name of your project and  <tag> with the tag of the image you want to use. [available tags](https://hub.docker.com/r/sageil/crewai/tags)
-> [!TIP]  
+
+> [!TIP]
 > if you leave out the `P` empty of completely remove `-e P=<project_name>` from the command, a default crew will be created with the name default_crew.
 
 2. From your container shell, navigate to your project directory/src/crew.py and import `Ollama` by adding `from langchain_community.llms import Ollama`
-3. Configure your crew to use your local llm by adding 
+3. Configure your crew to use your local llm by adding
 
 ```python
  myllm = Ollama(model="openhermes:v2.5", base_url="http://host.docker.internal:11434", temperature=0)
 ```
 4. Change the model and the temperature in the above snippet to your desired llm model
-5. Add the llm property to your agents by adding `llm=myllm` 
+5. Add the llm property to your agents by adding `llm=myllm`
 ```python
     @agent
     def researcher(self) -> Agent:
@@ -61,10 +61,10 @@ replace *container-name* with the name of your container,  *project-name* with t
 3. Add the llm property to your agents by adding `llm=ChatOpenAI()`
 4. Run your crew by executing `poetry run <project_name>`
 
-In both methods, you can also use a local mount from your host to the container by change the docker container run command with 
+In both methods, you can also use a local mount from your host to the container by change the docker container run command with
 `docker container run -e P="myproject" --network host --name myproject -it --mount type=bind,source="$(pwd)",target=/app sageil/crewai:latest bash`
 
-> [!TIP]  
+> [!TIP]
 > When working with remote services, you can also remove the --network host part of the command as its only required to allow
 > the container access to the host's network.
 
@@ -83,7 +83,7 @@ In both methods, you can also use a local mount from your host to the container 
 - **crewAI** 0.36.0 && **crewai-tools** 0.4.26
 
 
-## Tips 
+## Tips
 - v: `alias v='nvim` & `alias vim='nvim'`
 - Running `newcrew <project_name>` will create a new crew project with the provided name, install dependencies and configure the project virtual environment.
 - You can restart a container after stopping it by using `docker container start -ai <container-name>`
