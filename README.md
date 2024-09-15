@@ -14,7 +14,7 @@
 
 ## Motivation
 
-This Docker image provides a convenient & secure way to create and run CrewAI agents without having to install any dependencies locally. I created the image to experiment with local [ollama](https://ollama.com/) code generation and execution.
+This Docker image provides a convenient & secure way to create and run CrewAI agents without having to install any dependencies locally. I created the image to experiment with [ollama](https://ollama.com/) code generation and execution.
 
 ## Prerequisites
 - Docker
@@ -32,9 +32,9 @@ docker run -it --network host --name <container-name> -e P=<project-name> sageil
 ```
 
 > [!TIP]
-> if you leave out the `P` empty of completely remove `-e P=<project_name>` from the command, a default crew will be created with the name default_crew.
+> if you leave out the `P` completely `-e P=<project_name>` from the command, a default crew will be created with the name default_crew.
 
-2. From your container shell, navigate to your project directory/src/crew.py and import `Ollama` by adding `from langchain_community.llms import Ollama`
+2. Once the container starts, from your container shell, navigate to your project directory/src/crew.py and import `Ollama` by adding `from langchain_community.llms import Ollama`
 3. Configure your crew to use your local llm by adding
 
 ```python
@@ -61,8 +61,7 @@ docker run -it --network host --name <container-name> -e P=<project-name> sageil
 3. Add the llm property to your agents by adding `llm=ChatOpenAI()`
 4. Run your crew by executing `poetry run <project_name>`
 
-In both methods, you can also use a local mount from your host to the container by change the docker container run command with
-`docker container run -e P="myproject" --network host --name myproject -it --mount type=bind,source="$(pwd)",target=/app sageil/crewai:latest bash`
+
 
 > [!TIP]
 > When working with remote services, you can also remove the --network host part of the command as its only required to allow
@@ -78,6 +77,7 @@ In both methods, you can also use a local mount from your host to the container 
 ## Versions
 
 [Available Images](https://hub.docker.com/r/sageil/crewai/tags)
+- **crewAI** 0.55.2 **crewai-tools** 0.8.3
 - **crewAI** 0.51.0 **crewai-tools** 0.8.3
 - **crewAI** 0.41.1 **crewai-tools** 0.4.26
 - **crewAI** 0.36.0 && **crewai-tools** 0.4.26
