@@ -64,6 +64,7 @@ RUN mkdir -p "/home/appuser/.local/bin"
 ENV PATH="/home/appuser/.local/bin:$PATH"
 WORKDIR /app/
 RUN chown -R appuser:appgroup "/app/"
+SHELL ["/bin/bash", "-c"]
 RUN python -m pip install --upgrade pip && curl -sSL https://install.python-poetry.org | python3 -  && \ 
   pip install crewai==${CREWAI} crewai-tools==${TOOLS} --no-cache-dir && \
   poetry completions bash >> ~/.bash_completion && echo "source /shell_venv.sh" >> ~/.bashrc && \
