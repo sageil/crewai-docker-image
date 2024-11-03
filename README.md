@@ -85,15 +85,15 @@ docker run -it --network host --name <container-name> -e P=<project-name> sageil
 
 - **crewAI** 0.76.9 **crewai-tools** 0.13.4
 - **crewAI** 0.76.2 **crewai-tools** 0.13.2
-- **crewAI** 0.74.1 **crewai-tools** 0.13.2
-- **crewAI** 0.70.1 **crewai-tools** 0.12.1
-- **crewAI** 0.65.2 **crewai-tools** 0.12.1
-- **crewAI** 0.64.0 **crewai-tools** 0.12.1
-- **crewAI** 0.61.0 **crewai-tools** 0.12.1
-- **crewAI** 0.55.2 **crewai-tools** 0.8.3
-- **crewAI** 0.51.0 **crewai-tools** 0.8.3
-- **crewAI** 0.41.1 **crewai-tools** 0.4.26
-- **crewAI** 0.36.0 && **crewai-tools** 0.4.26
+- ~~**crewAI** 0.74.1 **crewai-tools** 0.13.2~~
+- ~~**crewAI** 0.70.1 **crewai-tools** 0.12.1~~
+- ~~**crewAI** 0.65.2 **crewai-tools** 0.12.1~~
+- ~~**crewAI** 0.64.0 **crewai-tools** 0.12.1~~
+- ~~**crewAI** 0.61.0 **crewai-tools** 0.12.1~~
+- ~~**crewAI** 0.55.2 **crewai-tools** 0.8.3~~
+- ~~**crewAI** 0.51.0 **crewai-tools** 0.8.3~~
+- ~~**crewAI** 0.41.1 **crewai-tools** 0.4.26~~
+- ~~**crewAI** 0.36.0 && **crewai-tools** 0.4.26~~
 
 ## Tips
 
