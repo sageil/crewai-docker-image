@@ -59,14 +59,14 @@ docker run -it --network host --name <container-name> -e P=<project-name> sageil
 
 ```
 
-6. Run your crew by executing `poetry run <project_name>`
+6. Run your crew by executing `crewau run`
 
 #### Method 2: using remote services like chatGPT
 
 1. Set your OPENAI API key `os.environ["OPENAI_API_KEY"] = "YOUR_KEY"`
 2. Set your chatGPT model `os.environ["CHATGPT_MODEL"] = "YOUR_MODEL`
 3. Add the llm property to your agents by adding `llm=ChatOpenAI()`
-4. Run your crew by executing `poetry run <project_name>`
+4. Run your crew by executing `crewai run`
 
 > [!TIP]
 > When working with remote services, you can also remove the --network host part of the command as its only required to allow
@@ -75,7 +75,7 @@ docker run -it --network host --name <container-name> -e P=<project-name> sageil
 ## Tools
 
 - **neoVim** Latest stable version built from source [neovim](https://github.com/neovim/neovim)
-- **poetry** Dependency management tool for Python projects [poetry](https://python-poetry.org/)
+- **uv** Dependency management tool for Python projects [uv](https://github.com/astral-sh/uv/)
 - **lazyVim** A highly optimized Vim-like editor for Neovim [lazyvim](https://www.lazyvim.org/)
 - **crewAI** Platform for Multi AI Agents Systems [official CrewAI documentation](https://docs.crewai.com/)
 
@@ -83,6 +83,8 @@ docker run -it --network host --name <container-name> -e P=<project-name> sageil
 
 [Available Versions](https://hub.docker.com/r/sageil/crewai/tags)
 
+- **crewAI** 0.76.9 **crewai-tools** 0.13.4
+- **crewAI** 0.76.2 **crewai-tools** 0.13.2
 - **crewAI** 0.74.1 **crewai-tools** 0.13.2
 - **crewAI** 0.70.1 **crewai-tools** 0.12.1
 - **crewAI** 0.65.2 **crewai-tools** 0.12.1
