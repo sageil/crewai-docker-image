@@ -59,7 +59,7 @@ docker run -it --network host --name <container-name> -e P=<project-name> sageil
 
 ```
 
-6. Run your crew by executing `crewau run`
+6. Run your crew by executing `crewai run`
 
 #### Method 2: using remote services like chatGPT
 
