@@ -74,34 +74,67 @@ The CrewAI Agents Docker Image is a containerized development environment design
    - **Issue Tracking**: Users can report issues and request features on the project's GitHub repository.
    - **Tutorial for Building and Publishing**: The `tutorial.md` file provides a step-by-step guide on how to build and publish the Docker image to Docker Hub.
 
-   **Tutorial for Building and Publishing the Docker Image to Docker Hub**:
-   - **Cloning the Project**:
-     ```sh
-     git clone https://github.com/your-repo/crewai-agents
-     cd crewai-agents
-     ```
-   - **Building the Docker Image**:
-     ```sh
-     docker build -t DOCKER_USERNAME/crewai-agents .
-     ```
-     For example, if your Docker username was `mobydock`, you would run:
-     ```sh
-     docker build -t mobydock/crewai-agents .
-     ```
-   - **Verifying the Image**:
-     ```sh
-     docker image ls
-     ```
-     You will see output similar to:
-     ```
-     REPOSITORY              TAG       IMAGE ID       CREATED          SIZE
-     mobydock/crewai-agents  latest    1543656c9290   2 minutes ago    1.12GB
-     ```
-   - **Pushing the Image to Docker Hub**:
-     ```sh
-     docker push DOCKER_USERNAME/crewai-agents
-     ```
-     Depending on your upload speeds, this may take a moment to push.
+ # Tutorial: Building and Publishing the CrewAI Agents Docker Image to Docker Hub
+
+This tutorial will guide you through the process of building and publishing the CrewAI Agents Docker Image to Docker Hub.
+
+## Prerequisites
+- **Docker**: Ensure Docker is installed on your machine. You can download it from the [Docker official website](https://www.docker.com/get-started).
+- **Docker Hub Account**: You need an account on Docker Hub to push the image. Sign up [here](https://hub.docker.com/).
+
+## Step 1: Cloning the Repository
+
+1. Open your terminal or command prompt.
+2. Clone the repository from GitHub using the following command:
+   ```sh
+   git clone https://github.com/sageil/crewai-docker-image
+   ```
+3. Navigate into the cloned repository directory:
+   ```sh
+   cd crewai-docker-image
+   ```
+
+## Step 2: Building the Docker Image
+
+1. Build the Docker image by running the following command. Replace `DOCKER_USERNAME` with your Docker Hub username.
+   ```sh
+   docker build -t DOCKER_USERNAME/crewai-agents .
+   ```
+   For example, if your Docker username is `mobydock`, you would run:
+   ```sh
+   docker build -t mobydock/crewai-agents .
+   ```
+
+## Step 3: Verifying the Docker Image
+
+1. Verify that the Docker image has been created successfully by listing the available images:
+   ```sh
+   docker image ls
+   ```
+   You should see output similar to the following:
+   ```
+   REPOSITORY                          TAG       IMAGE ID       CREATED          SIZE
+   mobydock/crewai-agents              latest    1543656c9290   2 minutes ago    1.12GB
+   ```
+
+## Step 4: Pushing the Docker Image to Docker Hub
+
+1. Log in to Docker Hub using the following command:
+   ```sh
+   docker login
+   ```
+   Enter your Docker Hub username and password when prompted.
+
+2. Push the Docker image to Docker Hub using the following command:
+   ```sh
+   docker push DOCKER_USERNAME/crewai-agents
+   ```
+   For example, if your Docker username is `mobydock`, you would run:
+   ```sh
+   docker push mobydock/crewai-agents
+   ```
+   Depending on your upload speeds, this may take a moment to complete.
+
 
 ### Conclusion
 The CrewAI Agents Docker Image is a powerful and flexible development environment designed for creating and running CrewAI agents. It provides a consistent and isolated environment with a rich set of tools and dependencies, making it easy for developers to get started with AI-driven projects. The project's features and technical specifications ensure a smooth and efficient development workflow, from project setup to code execution and AI integration. The addition of the `tutorial.md` file further enhances the documentation, providing a detailed guide on how to build and publish the Docker image to Docker Hub.
