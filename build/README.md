@@ -1,3 +1,80 @@
+# Tutorial: Building and Publishing the CrewAI Agents Docker Image to Docker Hub
+
+This tutorial will guide you through the process of building and publishing the CrewAI Agents Docker Image to Docker Hub.
+
+## Prerequisites
+- **Docker**: Ensure Docker is installed on your machine. You can download it from the [Docker official website](https://www.docker.com/get-started).
+- **Docker Hub Account**: You need an account on Docker Hub to push the image. Sign up [here](https://hub.docker.com/).
+
+## Step 1: Cloning the Repository
+
+1. Open your terminal or command prompt.
+2. Clone the repository from GitHub using the following command:
+   ```sh
+   git clone https://github.com/sageil/crewai-docker-image
+   ```
+3. Navigate into the cloned repository directory:
+   ```sh
+   cd crewai-docker-image
+   ```
+
+## Step 2: Setting Environment Variables
+
+1. Set the environment variables for the `CREWAI` and `TOOLS` versions you want to use. For example:
+   ```sh
+   export CREWAI=0.80.0
+   export TOOLS=0.14.0
+   ```
+   Replace `0.80.0` and `0.14.0` with the actual versions you want to use.
+
+## Step 3: Building the Docker Image
+
+1. Build the Docker image by running the following command. Replace `DOCKER_USERNAME` with your Docker Hub username.
+   ```sh
+   docker build -t DOCKER_USERNAME/crewai-agents .
+   ```
+   For example, if your Docker username is `mobydock`, you would run:
+   ```sh
+   docker build -t mobydock/crewai-agents .
+   ```
+
+## Step 4: Verifying the Docker Image
+
+1. Verify that the Docker image has been created successfully by listing the available images:
+   ```sh
+   docker image ls
+   ```
+   You should see output similar to the following:
+   ```
+   REPOSITORY                          TAG       IMAGE ID       CREATED          SIZE
+   mobydock/crewai-agents              latest    1543656c9290   2 minutes ago    1.12GB
+   ```
+
+## Step 5: Pushing the Docker Image to Docker Hub
+
+1. Log in to Docker Hub using the following command:
+   ```sh
+   docker login
+   ```
+   Enter your Docker Hub username and password when prompted.
+
+2. Push the Docker image to Docker Hub using the following command:
+   ```sh
+   docker push DOCKER_USERNAME/crewai-agents
+   ```
+   For example, if your Docker username is `mobydock`, you would run:
+   ```sh
+   docker push mobydock/crewai-agents
+   ```
+   Depending on your upload speeds, this may take a moment to complete.
+
+## Conclusion
+
+Congratulations! You have successfully built and published the CrewAI Agents Docker Image to Docker Hub. You can now use this image to create and run CrewAI agents in a consistent and isolated environment.
+
+For more information on how to use the CrewAI Agents Docker Image, refer to the [README.md](README.md) file.
+
+
 The CrewAI Agents Docker Image is a containerized development environment designed to facilitate the creation and execution of CrewAI agents. The project leverages Docker to provide a consistent and isolated environment for developers working with CrewAI and related tools. This Docker image includes a variety of tools and dependencies necessary for developing, testing, and running CrewAI agents, including Neovim, a highly optimized Vim-like editor, and a dependency management tool for Python projects. The primary goal of this project is to provide a seamless and secure way to experiment with and develop AI-driven agents, particularly those using the Ollama code generation and execution framework or remote AI services like chatGPT.
 
 #### Features
@@ -73,68 +150,6 @@ The CrewAI Agents Docker Image is a containerized development environment design
    - **Example Projects**: The README provides links to example projects, such as the Veterinary Assistant Crew, to help users get started quickly.
    - **Issue Tracking**: Users can report issues and request features on the project's GitHub repository.
    - **Tutorial for Building and Publishing**: The `tutorial.md` file provides a step-by-step guide on how to build and publish the Docker image to Docker Hub.
-
- # Tutorial: Building and Publishing the CrewAI Agents Docker Image to Docker Hub
-
-This tutorial will guide you through the process of building and publishing the CrewAI Agents Docker Image to Docker Hub.
-
-## Prerequisites
-- **Docker**: Ensure Docker is installed on your machine. You can download it from the [Docker official website](https://www.docker.com/get-started).
-- **Docker Hub Account**: You need an account on Docker Hub to push the image. Sign up [here](https://hub.docker.com/).
-
-## Step 1: Cloning the Repository
-
-1. Open your terminal or command prompt.
-2. Clone the repository from GitHub using the following command:
-   ```sh
-   git clone https://github.com/sageil/crewai-docker-image
-   ```
-3. Navigate into the cloned repository directory:
-   ```sh
-   cd crewai-docker-image
-   ```
-
-## Step 2: Building the Docker Image
-
-1. Build the Docker image by running the following command. Replace `DOCKER_USERNAME` with your Docker Hub username.
-   ```sh
-   docker build -t DOCKER_USERNAME/crewai-agents .
-   ```
-   For example, if your Docker username is `mobydock`, you would run:
-   ```sh
-   docker build -t mobydock/crewai-agents .
-   ```
-
-## Step 3: Verifying the Docker Image
-
-1. Verify that the Docker image has been created successfully by listing the available images:
-   ```sh
-   docker image ls
-   ```
-   You should see output similar to the following:
-   ```
-   REPOSITORY                          TAG       IMAGE ID       CREATED          SIZE
-   mobydock/crewai-agents              latest    1543656c9290   2 minutes ago    1.12GB
-   ```
-
-## Step 4: Pushing the Docker Image to Docker Hub
-
-1. Log in to Docker Hub using the following command:
-   ```sh
-   docker login
-   ```
-   Enter your Docker Hub username and password when prompted.
-
-2. Push the Docker image to Docker Hub using the following command:
-   ```sh
-   docker push DOCKER_USERNAME/crewai-agents
-   ```
-   For example, if your Docker username is `mobydock`, you would run:
-   ```sh
-   docker push mobydock/crewai-agents
-   ```
-   Depending on your upload speeds, this may take a moment to complete.
-
-
+  
 ### Conclusion
 The CrewAI Agents Docker Image is a powerful and flexible development environment designed for creating and running CrewAI agents. It provides a consistent and isolated environment with a rich set of tools and dependencies, making it easy for developers to get started with AI-driven projects. The project's features and technical specifications ensure a smooth and efficient development workflow, from project setup to code execution and AI integration. The addition of the `tutorial.md` file further enhances the documentation, providing a detailed guide on how to build and publish the Docker image to Docker Hub.
