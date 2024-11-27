@@ -29,10 +29,10 @@ This Docker image provides a convenient & secure way to create and run CrewAI ag
 
 #### Method 1: using a ollama locally
 
-1. Run the following command after replacing `container-name` with the name of your container, `project-name` with the name of your project and `tag` with the [tag](https://hub.docker.com/r/sageil/crewai/tags) of the image you want to use.
+1. Run the following command after replacing `container-name` with the name of your container, `project-name` with the name of your project and `tag` with the [tag](https://hub.docker.com/r/hotnikq/crewai/tags) of the image you want to use.
 
 ```bash
-docker run -it --network host --name <container-name> -e P=<project-name> sageil/crewai:<tag> bash
+docker run -it --network host --name <container-name> -e P=<project-name> hotnikq/crewai:<tag> bash
 ```
 
 > [!TIP]
@@ -82,21 +82,10 @@ docker run -it --network host --name <container-name> -e P=<project-name> sageil
 
 ## Versions
 
-[Available Versions](https://hub.docker.com/r/sageil/crewai/tags)
+[Available Versions](https://hub.docker.com/r/hotnikq/crewai/tags)
 
 - **crewAI** 0.80.0 **crewai-tools** 0.14.0
-- **crewAI** 0.79.4 **crewai-tools** 0.14.0
-- **crewAI** 0.76.9 **crewai-tools** 0.13.4
-- **crewAI** 0.76.2 **crewai-tools** 0.13.2
-- ~~**crewAI** 0.74.1 **crewai-tools** 0.13.2~~
-- ~~**crewAI** 0.70.1 **crewai-tools** 0.12.1~~
-- ~~**crewAI** 0.65.2 **crewai-tools** 0.12.1~~
-- ~~**crewAI** 0.64.0 **crewai-tools** 0.12.1~~
-- ~~**crewAI** 0.61.0 **crewai-tools** 0.12.1~~
-- ~~**crewAI** 0.55.2 **crewai-tools** 0.8.3~~
-- ~~**crewAI** 0.51.0 **crewai-tools** 0.8.3~~
-- ~~**crewAI** 0.41.1 **crewai-tools** 0.4.26~~
-- ~~**crewAI** 0.36.0 && **crewai-tools** 0.4.26~~
+
 
 ## Tips
 
@@ -106,7 +95,7 @@ docker run -it --network host --name <container-name> -e P=<project-name> sageil
 
 ## Example
 
-[Veterinary Assistant Crew](https://github.com/sageil/veterinary_assistant)
+[Veterinary Assistant Crew](https://github.com/hotnikq/veterinary_assistant)
 
 ## ScreenCaptures
 
@@ -118,12 +107,12 @@ docker run -it --network host --name <container-name> -e P=<project-name> sageil
 Known issues:
 
 1. Copying from nvim fails due to display driver
-2. Icon fonts are not rendered correctly in the container's terminal? [Watch](https://www.youtube.com/watch?v=mQdB_kHyZn8). if the video peaked your interest in [Wezterm](https://wezfurlong.org/wezterm/index.html), you can use my configuration from [Wezterm configs](https://github.com/sageil/wezterm)
+2. Icon fonts are not rendered correctly in the container's terminal? [Watch](https://www.youtube.com/watch?v=mQdB_kHyZn8). if the video peaked your interest in [Wezterm](https://wezfurlong.org/wezterm/index.html), you can use my configuration from [Wezterm configs](https://github.com/hotnikq/wezterm)
 
 New Issues:
 
-Please report other issues you encounter on the [Issues](https://github.com/sageil/crewai-docker-image/issues) including steps to reproduce them.
+Please report other issues you encounter on the [Issues](https://github.com/hotnikq/crewai-docker-image/issues) including steps to reproduce them.
 
 ## License
 
-This project is licensed under the [MIT License](https://github.com/sageil/crewai-docker-image/blob/main/LICENSE.md).
+This project is licensed under the [MIT License](https://github.com/hotnikq/crewai-docker-image/blob/main/LICENSE.md).
