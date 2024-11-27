@@ -31,11 +31,11 @@ This tutorial will guide you through the process of building and publishing the 
 
 1. Build the Docker image by running the following command. Replace `DOCKER_USERNAME` with your Docker Hub username.
    ```sh
-   docker build -t DOCKER_USERNAME/crewai-agents .
+   docker build --build-arg CREWAI=${CREWAI} --build-arg TOOLS=${TOOLS} -t DOCKER_USERNAME/crewai-agents . 
    ```
    For example, if your Docker username is `mobydock`, you would run:
    ```sh
-   docker build -t mobydock/crewai-agents .
+   docker build --build-arg CREWAI=${CREWAI} --build-arg TOOLS=${TOOLS} -t mobydock/crewai-agents . 
    ```
 
 ## Step 4: Verifying the Docker Image
