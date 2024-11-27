@@ -36,9 +36,9 @@ docker run -it --network host --name <container-name> -e P=<project-name> hotnik
 sudo docker run -it --network host --name crewai -e P=docs hotnikq/crewai bash
 vim .env
 ```
-MODEL=
-OPENAI_API_BASE=
-OPENAI_API_KEY=
+- MODEL=
+- OPENAI_API_BASE=
+- OPENAI_API_KEY=
 ```bash
 crewai run
 sudo docker container stop crewai
