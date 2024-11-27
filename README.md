@@ -35,6 +35,7 @@ This Docker image provides a convenient & secure way to create and run CrewAI ag
 docker run -it --network host --name <container-name> -e P=<project-name> hotnikq/crewai:<tag> bash
 sudo docker run -it --network host --name crewai -e P=docs hotnikq/crewai bash
 sudo docker container stop crewai
+sudo docker container remove crewai
 ```
 
 > [!TIP]
