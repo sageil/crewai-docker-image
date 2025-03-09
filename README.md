@@ -20,32 +20,60 @@ This Docker image provides a convenient & secure way to create and run CrewAI ag
 
 - Docker
 - Basic knowledge of python
-- Basic knowledge of crewAI and langchain
+- Basic knowledge of crewAI
 - Ollama installed locally or access to remote AI services like chatGPT
 - Desire to learn and have fun
 
 ## Usage
+### Starting the container
 
-#### Method 1: using a ollama locally
-
-1. Run the following command after replacing `container-name` with the name of your container, `project-name` with the name of your project and `tag` with the [tag](https://hub.docker.com/r/sageil/crewai/tags) of the image you want to use.
+ Run the following command after replacing `container_name` with the name of your container, `project_name` with the name of your project and `tag` with the [tag](https://hub.docker.com/r/sageil/crewai/tags) of the image you want to use.
 
 ```bash
-docker run -it --network host --name <container-name> -e P=<project-name> sageil/crewai:<tag> bash
+docker run -it --network host --name <container_name> -e P=<project_name> sageil/crewai:<tag> bash
 ```
 
 > [!TIP]
 > if you leave out the `P` completely `-e P=<project_name>` from the command, a default crew will be created with the name default_crew.
 
-2. Once the container starts, from your container shell, navigate to your project directory/src/crew.py and import `Ollama` by adding `from langchain_community.llms import Ollama`
-3. Configure your crew to use your local llm by adding
+#### Method 1: using a ollama locally
+
+1. Changing the container local configuration.
+    - Type `v .` to open neovim
+    - Open Lazyvim Explorer using `SPACE+e`
+    - Show hidden files using `SHIFT+H`
+    - Change the model and the `API_BASE` to `http://host.docker.internal:11434` and `MODEL` a model you have pulled on llama.
+2. Running your crew
+    - Open lazyvim terminal using `CTRL+/`
+    - Run `crewai run`
+
+
+#### Method 2: using remote services like chatGPT
+
+
+1. Change your selected provider and model:
+    - Type `v .` to open neovim
+    - Open Lazyvim Explorer using `SPACE+e`
+    - Show hidden files using `SHIFT+H`
+    - Change the model and the `OPENAI_API_KEY` to your key and `MODEL` a model you wish to use.
+2. Running your crew
+    - Open lazyvim terminal using `CTRL+/`
+    - Run `crewai run`
+
+#### Changing model and provider using Code
+
+1. Open your crew's crew.py
+2. Add `from crewai.llm import LLM` to the imports
+3. In your crew's `CrewBase` class create your LLM
 
 ```python
- myllm = Ollama(model="openhermes:v2.5", base_url="http://host.docker.internal:11434", temperature=0)
+ myllm = LLM (
+        model='ollama/deepseek-r1:7b',
+        base_url="http://localhost:11434",
+        temperature=0.2)
+    )
 ```
-
-4. Change the model and the temperature in the above snippet to your desired llm model
-5. Add the llm property to your agents by adding `llm=myllm`
+4. Assign the LLM to your agent by assigning it to the `llm` property
 
 ```python
     @agent
@@ -54,23 +82,15 @@ docker run -it --network host --name <container-name> -e P=<project-name> sageil
             config=self.agents_config['researcher'],
             # tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
             verbose=True, # Print out all actions
-            llm=myllm
+            llm=self.myllm
         )
 
 ```
 
-6. Run your crew by executing `crewai run`
-
-#### Method 2: using remote services like chatGPT
-
-1. Set your OPENAI API key `os.environ["OPENAI_API_KEY"] = "YOUR_KEY"`
-2. Set your chatGPT model `os.environ["CHATGPT_MODEL"] = "YOUR_MODEL`
-3. Add the llm property to your agents by adding `llm=ChatOpenAI()`
-4. Run your crew by executing `crewai run`
-
 > [!TIP]
 > When working with remote services, you can also remove the --network host part of the command as its only required to allow
 > the container access to the host's network.
+
 
 ## Tools
 
@@ -109,7 +129,7 @@ docker run -it --network host --name <container-name> -e P=<project-name> sageil
 
 - v: `alias v='nvim` & `alias vim='nvim'`
 - Running `newcrew <project_name>` will create a new crew project with the provided name, install dependencies and configure the project virtual environment.
-- You can restart a container after stopping it by using `docker container start -ai <container-name>`
+- You can restart a container after stopping it by using `docker container start -ai <container_name>`
 
 ## Example
 
