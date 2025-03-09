@@ -36,7 +36,7 @@ docker run -it --network host --name <container_name> -e P=<project_name> sageil
 > [!TIP]
 > if you leave out the `P` completely `-e P=<project_name>` from the command, a default crew will be created with the name default_crew.
 
-#### Method 1: using a ollama locally
+#### Using locally installed Ollama
 
 1. Changing the container local configuration.
     - Type `v .` to open neovim
@@ -48,7 +48,7 @@ docker run -it --network host --name <container_name> -e P=<project_name> sageil
     - Run `crewai run`
 
 
-#### Method 2: using remote services like chatGPT
+#### Using remote services like chatGPT
 
 
 1. Change your selected provider and model:
