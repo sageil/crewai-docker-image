@@ -25,6 +25,7 @@ This Docker image provides a convenient & secure way to create and run CrewAI ag
 - Desire to learn and have fun
 
 ## Usage
+
 ### Starting the container
 
  Run the following command after replacing `container_name` with the name of your container, `project_name` with the name of your project and `tag` with the [tag](https://hub.docker.com/r/sageil/crewai/tags) of the image you want to use.
@@ -47,9 +48,7 @@ docker run -it --network host --name <container_name> -e P=<project_name> sageil
     - Open lazyvim terminal using `CTRL+/`
     - Run `crewai run`
 
-
 #### Using remote services like chatGPT
-
 
 1. Change your selected provider and model:
     - Type `v .` to open neovim
@@ -73,6 +72,7 @@ docker run -it --network host --name <container_name> -e P=<project_name> sageil
         temperature=0.2)
     )
 ```
+
 4. Assign the LLM to your agent by assigning it to the `llm` property
 
 ```python
@@ -91,7 +91,6 @@ docker run -it --network host --name <container_name> -e P=<project_name> sageil
 > When working with remote services, you can also remove the --network host part of the command as its only required to allow
 > the container access to the host's network.
 
-
 ## Tools
 
 - **neoVim** Latest stable version built from source [neovim](https://github.com/neovim/neovim)
@@ -103,6 +102,7 @@ docker run -it --network host --name <container_name> -e P=<project_name> sageil
 
 [Available Versions](https://hub.docker.com/r/sageil/crewai/tags)
 
+- **crewAI** 0.108.0 **crewai-tools** 0.38.1
 - **crewAI** 0.105.0 **crewai-tools** 0.37.0
 - **crewAI** 0.102.0 **crewai-tools** 0.36.0
 - **crewAI** 0.100.0 **crewai-tools** 0.33.0
