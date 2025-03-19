@@ -10,13 +10,13 @@ LABEL crewai-tools.version=${TOOLS}
 LABEL maintainedby="Sammy Ageil"
 LABEL release-date=${RELEASE_DATE}
 RUN apt-get update -y && apt-get install \
-  curl=7.88.1-10+deb12u8 \
+  curl=7.88.1-10+deb12u12 \
   bash-completion=1:2.11-6 \
   ripgrep=13.0.0-4+b2 \
   fzf=0.38.0-1+b1 \
   xclip=0.13-2 \
   tree=2.1.0-1 \
-  git=1:2.39.5-0+deb12u1 \
+  git=1:2.39.5-0+deb12u2 \
   make=4.3-4.1 \
   cmake=3.25.1-1 \
   build-essential=12.9 \
