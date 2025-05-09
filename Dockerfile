@@ -1,4 +1,4 @@
-FROM python:3.11-slim-bookworm
+FROM python:3.12-slim-bookworm
 ARG RELEASE_DATE
 ARG CREWAI
 ARG TOOLS
@@ -73,5 +73,6 @@ RUN git clone https://github.com/LazyVim/starter /home/appuser/.config/nvim && r
 COPY options.lua /home/appuser/.config/nvim/lua/config/options.lua
 COPY lazy.lua /home/appuser/.config/nvim/lua/config/lazy.lua
 COPY treesitter.lua /home/appuser/.config/nvim/lua/plugins/treesitter.lua
+COPY mason-workaround.lua /home/appuser/.config/nvim/lua/plugins/mason-workaround.lua
 RUN timeout 200s nvim || true
 ENTRYPOINT [ "/entrypoint.sh" ]
