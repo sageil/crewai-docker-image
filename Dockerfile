@@ -71,9 +71,8 @@ RUN python -m pip install --upgrade pip  && curl -LsSf https://astral.sh/uv/inst
   echo "alias vim='nvim'" >> ~/.bashrc && echo "source /shell_venv.sh" >> ~/.bashrc
 RUN git clone https://github.com/LazyVim/starter /home/appuser/.config/nvim && rm -rf /home/appuser/.config/nvim/.git
 COPY options.lua /home/appuser/.config/nvim/lua/config/options.lua
-COPY lazy.lua /home/appuser/.config/nvim/lua/config/lazy.lua
-COPY --chown=appuser which-key.lua /home/appuser/.config/nvim/plugins/which-key.lua
-COPY --chown=appuser toggle-term.lua /home/appuser/.config/nvim/plugins/toggle-term.lua
+COPY --chown=appuser which-key.lua /home/appuser/.config/nvim/lua/plugins/whick-key.lua
+COPY --chown=appuser toggle-term.lua /home/appuser/.config/nvim/lua/plugins/toggle-term.lua
 COPY --chown=appuser lazyvim.json /home/appuser/.config/nvim/lazyvim.json
 RUN timeout 200s nvim || true
 ENTRYPOINT [ "/entrypoint.sh" ]
