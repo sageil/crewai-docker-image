@@ -39,7 +39,7 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | b
 RUN nvm install --lts
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 RUN npm install -g npm@latest && npm install -g fd-find
-WORKDIR /home/appuser/app
+WORKDIR /home/appuser/apps
 SHELL ["/bin/bash", "-c"]
 RUN python -m pip install --upgrade pip  && curl -LsSf https://astral.sh/uv/install.sh | sh \
     && uv pip install --prefix "/home/appuser/.local/" crewai==${CREWAI} crewai-tools==${TOOLS} --no-cache-dir && \
