@@ -44,8 +44,8 @@ SHELL ["/bin/bash", "-c"]
 RUN python -m pip install --upgrade pip  && curl -LsSf https://astral.sh/uv/install.sh | sh \
     && uv pip install --prefix "/home/appuser/.local/" crewai==${CREWAI} crewai-tools==${TOOLS} --no-cache-dir && \
     echo "source /add_crew.sh" >> ~/.bashrc && echo "alias v='nvim'" >> ~/.bashrc && \
-    echo "alias vim='nvim'" >> ~/.bashrc && echo "source /shell_venv.sh" >> ~/.bashrc
-RUN git clone https://github.com/LazyVim/starter ~/.config/nvim && rm -rf ~/config/nvim/.git
+    echo "alias vim='nvim'" >> ~/.bashrc && echo "alias lg='lazygit'" >> ~/.bashrc && echo "source /shell_venv.sh" >> ~/.bashrc
+RUN git clone https://github.com/LazyVim/starter /home/appuser/.config/nvim && rm -rf /home/appuser/.config/nvim/.git
 
 COPY --chown=appuser options.lua /home/appuser/.config/nvim/lua/config/options.lua
 COPY --chown=appuser which-key.lua /home/appuser/.config/nvim/lua/plugins/whick-key.lua
