@@ -102,6 +102,7 @@ docker run -it --network host --name <container_name> -e P=<project_name> sageil
 
 [Available Versions](https://hub.docker.com/r/sageil/crewai/tags)
 
+- **crewAI** 0.141.0 **crewai-tools** 0.51.1
 - **crewAI** 0.140.0 **crewai-tools** 0.49.0
 - **crewAI** 0.134.0 **crewai-tools** 0.48.0
 - **crewAI** 0.130.0 **crewai-tools** 0.47.1
