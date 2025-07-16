@@ -34,8 +34,31 @@ This Docker image provides a convenient & secure way to create and run CrewAI ag
 docker run -it --network host --name <container_name> -e P=<project_name> sageil/crewai:<tag> bash
 ```
 
+
 > [!TIP]
 > if you leave out the `P` completely `-e P=<project_name>` from the command, a default crew will be created with the name default_crew.
+
+> [!TIP]
+> Crew AI projects depends on `.env` file which create AI creates to after you provide your model preference. This file will be always be stored in the project directory.
+```bash
+my_project/
+├── .gitignore
+├── knowledge/
+├── pyproject.toml
+├── README.md
+├── .env
+└── src/
+    └── my_project/
+        ├── __init__.py
+        ├── main.py
+        ├── crew.py
+        ├── tools/
+        │   ├── custom_tool.py
+        │   └── __init__.py
+        └── config/
+            ├── agents.yaml
+            └── tasks.yaml
+```
 
 #### Using locally installed Ollama
 
