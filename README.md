@@ -34,12 +34,12 @@ This Docker image provides a convenient & secure way to create and run CrewAI ag
 docker run -it --network host --name <container_name> -e P=<project_name> sageil/crewai:<tag> bash
 ```
 
-
 > [!TIP]
 > if you leave out the `P` completely `-e P=<project_name>` from the command, a default crew will be created with the name default_crew.
 
 > [!TIP]
 > Crew AI projects depends on `.env` file to store your model configuration/selection. This file is created by CrewAI CLI to store your selection.This file will be always be stored in the project directory. CrewAI will ignore this file, if set the `llm` property to code created LLM.
+
 ```bash
 my_project/
 ├── .gitignore
@@ -125,6 +125,7 @@ my_project/
 
 [Available Versions](https://hub.docker.com/r/sageil/crewai/tags)
 
+- **crewAI** 0.148.0 **crewai-tools** 0.55.0
 - **crewAI** 0.141.0 **crewai-tools** 0.51.1
 - **crewAI** 0.140.0 **crewai-tools** 0.49.0
 - **crewAI** 0.134.0 **crewai-tools** 0.48.0
