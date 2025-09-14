@@ -35,7 +35,7 @@ docker run -it --network host --name <container_name> -e P=<project_name> sageil
 ```
 
 > [!TIP]
-> if you leave out the `P` completely `-e P=<project_name>` from the command, a default crew will be created with the name default_crew.
+> if you leave out the `P` completely `-e P=<project_name>` from the command, a default crew will be created with the name default_crew. Project name must be lowercase and cannot contain `-`
 
 > [!TIP]
 > Crew AI projects depends on `.env` file to store your model configuration/selection. This file is created by CrewAI CLI to store your selection.This file will be always be stored in the project directory. CrewAI will ignore this file, if set the `llm` property to code created LLM.
@@ -125,6 +125,7 @@ my_project/
 
 [Available Versions](https://hub.docker.com/r/sageil/crewai/tags)
 
+- **crewAI** 0.186.1 **crewai-tools** 0.71.0
 - **crewAI** 0.177.0 **crewai-tools** 0.69.0
 - **crewAI** 0.175.0 **crewai-tools** 0.65.0
 - **crewAI** 0.165.1 **crewai-tools** 0.62.3
