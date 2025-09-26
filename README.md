@@ -125,6 +125,7 @@ my_project/
 
 [Available Versions](https://hub.docker.com/r/sageil/crewai/tags)
 
+- **crewAI** 0.201.0 **crewai-tools** 0.74.1
 - **crewAI** 0.193.2 **crewai-tools** 0.73.1
 - **crewAI** 0.186.1 **crewai-tools** 0.71.0
 - **crewAI** 0.177.0 **crewai-tools** 0.69.0
