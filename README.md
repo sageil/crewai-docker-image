@@ -2,7 +2,6 @@
 
 - [Motivation](#motivation)
 - [Prerequisites](#prerequisites)
-- [Installation](#installation)
 - [Usage](#usage)
 - [Tools](#tools)
 - [Supported Versions](#versions)
