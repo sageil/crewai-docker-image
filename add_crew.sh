@@ -7,11 +7,11 @@ newcrew() {
     deactivate
     echo -e "${YELLOW} Creating $PROJECT${RESET}"
     crewai create crew "$PROJECT"
-    cd $PWD/$PROJECT
+    cd "$PWD"/"$PROJECT" || exit
     uv lock
     uv sync
     uv venv
-    chmod +x .venv/bin/activate && source .venv/bin/activate
+    chmod +x .venv/bin/activate && source ".venv/bin/activate"
 
   else
     echo -e "${YELLOW}Please provide a project name${RESET}"
