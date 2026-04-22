@@ -27,7 +27,7 @@ This Docker image provides a convenient & secure way to create and run CrewAI ag
 
 ### Starting the container
 
- Run the following command after replacing `container_name` with the name of your container, `project_name` with the name of your project and `tag` with the [tag](https://hub.docker.com/r/sageil/crewai/tags) of the image you want to use.
+Run the following command after replacing `container_name` with the name of your container, `project_name` with the name of your project and `tag` with the [tag](https://hub.docker.com/r/sageil/crewai/tags) of the image you want to use.
 
 ```bash
 docker run -it --network host --name <container_name> -e P=<project_name> sageil/crewai:<tag> bash
@@ -62,24 +62,24 @@ my_project/
 #### Using locally installed Ollama
 
 1. Changing the container local configuration.
-    - Type `v .` to open neovim
-    - Open Lazyvim Explorer using `SPACE+e`
-    - Show hidden files using `SHIFT+H`
-    - Change the model and the `API_BASE` to `http://host.docker.internal:11434` and `MODEL` a model you have pulled on llama.
+   - Type `v .` to open neovim
+   - Open Lazyvim Explorer using `SPACE+e`
+   - Show hidden files using `SHIFT+H`
+   - Change the model and the `API_BASE` to `http://host.docker.internal:11434` and `MODEL` a model you have pulled on llama.
 2. Running your crew
-    - Open lazyvim terminal using `CTRL+/`
-    - Run `crewai run`
+   - Open lazyvim terminal using `CTRL+/`
+   - Run `crewai run`
 
 #### Using remote services like chatGPT
 
 1. Change your selected provider and model:
-    - Type `v .` to open neovim
-    - Open Lazyvim Explorer using `SPACE+e`
-    - Show hidden files using `SHIFT+H`
-    - Change the model and the `OPENAI_API_KEY` to your key and `MODEL` a model you wish to use.
+   - Type `v .` to open neovim
+   - Open Lazyvim Explorer using `SPACE+e`
+   - Show hidden files using `SHIFT+H`
+   - Change the model and the `OPENAI_API_KEY` to your key and `MODEL` a model you wish to use.
 2. Running your crew
-    - Open lazyvim terminal using `CTRL+/`
-    - Run `crewai run`
+   - Open lazyvim terminal using `CTRL+/`
+   - Run `crewai run`
 
 #### Changing model and provider using Code
 
@@ -124,6 +124,8 @@ my_project/
 
 [Available Versions](https://hub.docker.com/r/sageil/crewai/tags)
 
+- **crewAI** 1.14.2 **crewai-tools** 1.14.2
+- **crewAI** 1.12.2 **crewai-tools** 1.12.2
 - **crewAI** 1.11.0 **crewai-tools** 1.11.0
 - **crewAI** 1.10.0 **crewai-tools** 1.10.0
 - **crewAI** 1.9.0 **crewai-tools** 1.9.0
