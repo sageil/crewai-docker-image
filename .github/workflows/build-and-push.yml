@@ -10,10 +10,6 @@ on:
         description: "Validate workflow config and tags without pushing images"
         required: false
         default: "false"
-      publish_latest:
-        description: "Also publish :latest tag (required explicitly)"
-        required: false
-        default: "false"
 
 jobs:
   docker:
@@ -41,11 +37,7 @@ jobs:
         run: |
           echo "DRY RUN: resolved CrewAI version = ${{ steps.version.outputs.value }}"
           echo "DRY RUN command:"
-          if [ "${{ github.event.inputs.publish_latest }}" = "true" ]; then
-            echo "  docker buildx build --platform linux/amd64,linux/arm64 --build-arg CREWAI=${{ steps.version.outputs.value }} --tag sageil/crewai:${{ steps.version.outputs.value }} --tag sageil/crewai:latest ."
-          else
-            echo "  docker buildx build --platform linux/amd64,linux/arm64 --build-arg CREWAI=${{ steps.version.outputs.value }} --tag sageil/crewai:${{ steps.version.outputs.value }} ."
-          fi
+          echo "  docker buildx build --platform linux/amd64,linux/arm64 --build-arg CREWAI=${{ steps.version.outputs.value }} --tag sageil/crewai:${{ steps.version.outputs.value }} --tag sageil/crewai:latest ."
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -65,24 +57,12 @@ jobs:
       - name: Build and push multi-arch image
         if: github.event.inputs.dry_run != 'true'
         uses: docker/build-push-action@v6
-        id: build_version
         with:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             sageil/crewai:${{ steps.version.outputs.value }}
-          build-args: |
-            CREWAI=${{ steps.version.outputs.value }}
-
-      - name: Optionally publish latest
-        if: github.event.inputs.dry_run != 'true' && github.event.inputs.publish_latest == 'true'
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: |
             sageil/crewai:latest
           build-args: |
             CREWAI=${{ steps.version.outputs.value }}
