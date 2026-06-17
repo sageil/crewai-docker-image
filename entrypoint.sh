@@ -22,8 +22,6 @@ setup() {
     cd "${project_name}" || exit
   fi
 
-  echo -e "${YELLOW}Activating environment (if present)${RESET}"
-  sv
 }
 
 project="${P:-default_crew}"
