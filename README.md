@@ -1,6 +1,6 @@
 # CrewAI Agents Docker Image
 
-![Docker Image Version](https://img.shields.io/docker/v/sageil/crewai?sort=semver&label=latest)
+![Docker Image Version](https://img.shields.io/docker/v/sageil/crewai)
 ![Docker Pulls](https://img.shields.io/docker/pulls/sageil/crewai.svg)
 ![GitHub Issues](https://img.shields.io/github/issues/sageil/crewai-docker-image)
 ![GitHub Stars](https://img.shields.io/github/stars/sageil/crewai-docker-image?style=flat-square)
