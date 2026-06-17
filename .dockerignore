@@ -1,0 +1,9 @@
+.git
+.gitignore
+LICENSE.md
+README.md
+assets
+*.md
+*~
+*.swp
+*.swo

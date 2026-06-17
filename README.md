@@ -1,51 +1,168 @@
 # CrewAI Agents Docker Image
 
-- [Motivation](#motivation)
-- [Prerequisites](#prerequisites)
-- [Usage](#usage)
-- [Tools](#tools)
-- [Supported Versions](#versions)
-- [Tips](#tips)
-- [Example Projects](#examples)
-- [Screen Captures](#screencaptures)
-- [Issues](#issues)
-- [License](#license)
+![Docker Image Version](https://img.shields.io/docker/v/sageil/crewai?sort=semver&label=latest)
+![Docker Pulls](https://img.shields.io/docker/pulls/sageil/crewai.svg)
+![GitHub Issues](https://img.shields.io/github/issues/sageil/crewai-docker-image)
+![GitHub Stars](https://img.shields.io/github/stars/sageil/crewai-docker-image?style=flat-square)
 
-## Motivation
+## TL;DR
 
-This Docker image provides a convenient & secure way to create and run CrewAI agents without having to install any dependencies locally. I created the image to experiment with [ollama](https://ollama.com/) code generation and execution.
+1. Build image:
+```bash
+docker build --platform linux/amd64 --build-arg CREWAI=1.14.7 -t crewai:1.14.7 .
+```
+2. Start container with a project mount:
+```bash
+mkdir -p projects && \
+docker run -it --rm --network host \
+  -v "$PWD/projects:/home/appuser/apps" \
+  -e P=my_project \
+  crewai:1.14.7 \
+  bash
+```
+3. Inside container, open your project:
+```bash
+v .
+crewai run
+```
+
+## Why this image
+
+This image is a ready-to-use local environment for building and running CrewAI agents without local dependency setup.
+
+It includes:
+
+- neovim + LazyVim
+- uv and `crewai` / `crewai-tools`
+- `fd`, `rg`, `fzf`, and `lazygit`
+- shell helpers (`v`, `lg`, `sv`, `newcrew`)
 
 ## Prerequisites
 
 - Docker
-- Basic knowledge of python
-- Basic knowledge of crewAI
-- Ollama installed locally or access to remote AI services like chatGPT
-- Desire to learn and have fun
+- Docker Compose (optional, for repeatable local deployment)
+- Basic Python/CrewAI familiarity
+- Ollama locally or remote API credentials (optional)
 
-## Usage
+## Quick start
 
-### Starting the container
-
-Run the following command after replacing `container_name` with the name of your container, `project_name` with the name of your project and `tag` with the [tag](https://hub.docker.com/r/sageil/crewai/tags) of the image you want to use.
+### Build the image
 
 ```bash
-docker run -it --network host --name <container_name> -e P=<project_name> sageil/crewai:<tag> bash
+docker build \
+  --platform linux/amd64 \
+  --build-arg CREWAI=1.14.7 \
+  -t sageil/crewai:1.14.7 .
 ```
 
-> [!TIP]
-> if you leave out the `P` completely `-e P=<project_name>` from the command, a default crew will be created with the name default_crew. Project name must be lowercase and cannot contain `-`
-
-> [!TIP]
-> Crew AI projects depends on `.env` file to store your model configuration/selection. This file is created by CrewAI CLI to store your selection.This file will be always be stored in the project directory. CrewAI will ignore this file, if set the `llm` property to code created LLM.
+### Run a container
 
 ```bash
+mkdir -p projects
+docker run -it --rm --network host \
+  -v "$PWD/projects:/home/appuser/apps" \
+  -e P=my_project \
+  sageil/crewai:1.14.7 \
+  bash
+```
+
+The image defaults to `P=default_crew` if not provided.
+
+### Run with Compose
+
+```bash
+docker compose up -d
+docker compose exec crewai bash
+```
+
+You can override image and project name:
+
+```bash
+IMAGE=sageil/crewai:latest \
+CREWAI_PROJECT=my_project \
+docker compose up -d
+```
+
+## Working inside the container
+
+Projects are created with `crewai create crew` on first startup (based on `P`).
+
+Useful commands:
+
+- `v .` → open current project in neovim
+- `newcrew <project_name>` → create a new CrewAI project in current directory
+- `sv` → activate `.venv` in current project (auto-run when present)
+- `crewai run` → run the current project
+
+## LLM provider setup
+
+### Ollama on host
+
+1. Open project in neovim (`v .`).
+2. Open LazyVim explorer (`SPACE+e`) and show hidden files (`SHIFT+H`).
+3. Update model/base settings to use your host endpoint (example: `http://host.docker.internal:11434`).
+
+### Remote providers (OpenAI/others)
+
+1. Open your config in neovim.
+2. Set `OPENAI_API_KEY` and model values in `.env` or crew config.
+3. Run `crewai run`.
+
+### Code-based LLM override
+
+```python
+from crewai.llm import LLM
+
+myllm = LLM(
+    model='ollama/deepseek-r1:7b',
+    base_url='http://localhost:11434',
+    temperature=0.2,
+)
+```
+
+Assign `llm=myllm` in `Agent(...)` where needed.
+
+## Deployment notes
+
+- Persist project outputs with `./projects:/home/appuser/apps`.
+- Remove `network_mode: host` in `docker-compose.yml` only when using external APIs and no host networking is required.
+- Restart a stopped container with `docker container start -ai <container_name>`.
+
+## Supported versions
+
+Recent and commonly used tags:
+
+- `1.14.7`
+- `1.14.6`
+- `1.14.3`
+- `1.14.2`
+- `1.12.2`
+- `1.11.0`
+- `1.10.0`
+- `1.9.0`
+- `1.8.1`
+- `1.8.0`
+- `1.7.2`
+- `1.7.1`
+- `1.7.0`
+
+Full version history is available on Docker Hub:
+- https://hub.docker.com/r/sageil/crewai/tags
+
+## Known issues
+
+- Clipboard integration in neovim may require X11/display setup.
+- Icon fonts may render inconsistently in some terminals.
+
+## File tree example
+
+```text
 my_project/
 ├── .gitignore
+├── .env
 ├── knowledge/
 ├── pyproject.toml
 ├── README.md
-├── .env
 └── src/
     └── my_project/
         ├── __init__.py
@@ -59,163 +176,10 @@ my_project/
             └── tasks.yaml
 ```
 
-#### Using locally installed Ollama
+## Issues and support
 
-1. Changing the container local configuration.
-   - Type `v .` to open neovim
-   - Open Lazyvim Explorer using `SPACE+e`
-   - Show hidden files using `SHIFT+H`
-   - Change the model and the `API_BASE` to `http://host.docker.internal:11434` and `MODEL` a model you have pulled on llama.
-2. Running your crew
-   - Open lazyvim terminal using `CTRL+/`
-   - Run `crewai run`
-
-#### Using remote services like chatGPT
-
-1. Change your selected provider and model:
-   - Type `v .` to open neovim
-   - Open Lazyvim Explorer using `SPACE+e`
-   - Show hidden files using `SHIFT+H`
-   - Change the model and the `OPENAI_API_KEY` to your key and `MODEL` a model you wish to use.
-2. Running your crew
-   - Open lazyvim terminal using `CTRL+/`
-   - Run `crewai run`
-
-#### Changing model and provider using Code
-
-1. Open your crew's crew.py
-2. Add `from crewai.llm import LLM` to the imports
-3. In your crew's `CrewBase` class create your LLM
-
-```python
- myllm = LLM (
-        model='ollama/deepseek-r1:7b',
-        base_url="http://localhost:11434",
-        temperature=0.2)
-    )
-```
-
-4. Assign the LLM to your agent by assigning it to the `llm` property
-
-```python
-    @agent
-    def researcher(self) -> Agent:
-        return Agent(
-            config=self.agents_config['researcher'],
-            # tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
-            verbose=True, # Print out all actions
-            llm=self.myllm
-        )
-
-```
-
-> [!TIP]
-> When working with remote services, you can also remove the --network host part of the command as its only required to allow
-> the container access to the host's network.
-
-## Tools
-
-- **neoVim** Latest stable version built from source [neovim](https://github.com/neovim/neovim)
-- **uv** Dependency management tool for Python projects [uv](https://github.com/astral-sh/uv/)
-- **lazyVim** A highly optimized Vim-like editor for Neovim [lazyvim](https://www.lazyvim.org/)
-- **crewAI** Platform for Multi AI Agents Systems [official CrewAI documentation](https://docs.crewai.com/)
-
-## Versions
-
-[Available Versions](https://hub.docker.com/r/sageil/crewai/tags)
-
-- **crewAI** 1.14.7 **crewai-tools** 1.14.7
-- **crewAI** 1.14.6 **crewai-tools** 1.14.6
-- **crewAI** 1.14.3 **crewai-tools** 1.14.3
-- **crewAI** 1.14.2 **crewai-tools** 1.14.2
-- **crewAI** 1.12.2 **crewai-tools** 1.12.2
-- **crewAI** 1.11.0 **crewai-tools** 1.11.0
-- **crewAI** 1.10.0 **crewai-tools** 1.10.0
-- **crewAI** 1.9.0 **crewai-tools** 1.9.0
-- **crewAI** 1.8.1 **crewai-tools** 1.8.1
-- **crewAI** 1.8.0 **crewai-tools** 1.8.0
-- **crewAI** 1.7.2 **crewai-tools** 1.7.2
-- **crewAI** 1.7.1 **crewai-tools** 1.7.1
-- **crewAI** 1.7.0 **crewai-tools** 1.7.0
-- **crewAI** 1.6.1 **crewai-tools** 1.6.1
-- **crewAI** 1.5.0 **crewai-tools** 1.5.0
-- **crewAI** 1.4.1 **crewai-tools** 1.4.1
-- **crewAI** 1.3.0 **crewai-tools** 1.3.0
-- **crewAI** 1.2.1 **crewai-tools** 1.2.1
-- **crewAI** 1.2.0 **crewai-tools** 1.2.0
-- **crewAI** 0.203.0 **crewai-tools** 0.76.0
-- **crewAI** 0.201.1 **crewai-tools** 0.75.0
-- **crewAI** 0.201.0 **crewai-tools** 0.74.1
-- **crewAI** 0.193.2 **crewai-tools** 0.73.1
-- **crewAI** 0.186.1 **crewai-tools** 0.71.0
-- **crewAI** 0.177.0 **crewai-tools** 0.69.0
-- **crewAI** 0.175.0 **crewai-tools** 0.65.0
-- **crewAI** 0.165.1 **crewai-tools** 0.62.3
-- **crewAI** 0.159.0 **crewai-tools** 0.62.0
-- **crewAI** 0.157.0 **crewai-tools** 0.60.0
-- **crewAI** 0.152.0 **crewai-tools** 0.59.0
-- **crewAI** 0.150.0 **crewai-tools** 0.58.0
-- **crewAI** 0.148.0 **crewai-tools** 0.55.0
-- **crewAI** 0.141.0 **crewai-tools** 0.51.1
-- **crewAI** 0.140.0 **crewai-tools** 0.49.0
-- **crewAI** 0.134.0 **crewai-tools** 0.48.0
-- **crewAI** 0.130.0 **crewai-tools** 0.47.1
-- **crewAI** 0.126.0 **crewai-tools** 0.47.0
-- **crewAI** 0.121.1 **crewai-tools** 0.46.0
-- **crewAI** 0.120.1 **crewai-tools** 0.45.0
-- **crewAI** 0.119.0 **crewai-tools** 0.44.0
-- **crewAI** 0.118.0 **crewai-tools** 0.43.0
-- **crewAI** 0.117.1 **crewai-tools** 0.43.0
-- **crewAI** 0.114.0 **crewai-tools** 0.40.1
-- **crewAI** 0.108.0 **crewai-tools** 0.38.1
-- **crewAI** 0.105.0 **crewai-tools** 0.37.0
-- **crewAI** 0.102.0 **crewai-tools** 0.36.0
-- **crewAI** 0.100.0 **crewai-tools** 0.33.0
-- **crewAI** 0.98.0 **crewai-tools** 0.32.1
-- **crewAI** 0.95.0 **crewai-tools** 0.25.8
-- **crewAI** 0.85.0 **crewai-tools** 0.17.9
-- **crewAI** 0.85.0 **crewai-tools** 0.17.0
-- **crewAI** 0.83.0 **crewai-tools** 0.14.0
-- **crewAI** 0.80.0 **crewai-tools** 0.14.0
-- **crewAI** 0.79.4 **crewai-tools** 0.14.0
-- **crewAI** 0.76.9 **crewai-tools** 0.13.4
-- **crewAI** 0.76.2 **crewai-tools** 0.13.2
-- ~~**crewAI** 0.74.1 **crewai-tools** 0.13.2~~
-- ~~**crewAI** 0.70.1 **crewai-tools** 0.12.1~~
-- ~~**crewAI** 0.65.2 **crewai-tools** 0.12.1~~
-- ~~**crewAI** 0.64.0 **crewai-tools** 0.12.1~~
-- ~~**crewAI** 0.61.0 **crewai-tools** 0.12.1~~
-- ~~**crewAI** 0.55.2 **crewai-tools** 0.8.3~~
-- ~~**crewAI** 0.51.0 **crewai-tools** 0.8.3~~
-- ~~**crewAI** 0.41.1 **crewai-tools** 0.4.26~~
-- ~~**crewAI** 0.36.0 && **crewai-tools** 0.4.26~~
-
-## Tips
-
-- v: `alias v='nvim` & `alias vim='nvim'`
-- Running `newcrew <project_name>` will create a new crew project with the provided name, install dependencies and configure the project virtual environment.
-- You can restart a container after stopping it by using `docker container start -ai <container_name>`
-
-## Example
-
-[Veterinary Assistant Crew](https://github.com/sageil/veterinary_assistant)
-
-## ScreenCaptures
-
-![Editor](assets/nvim-main.png)
-![Code](assets/code-action.png)
-
-## Issues
-
-Known issues:
-
-1. Copying from nvim fails due to display driver
-2. Icon fonts are not rendered correctly in the container's terminal? [Watch](https://www.youtube.com/watch?v=mQdB_kHyZn8). if the video peaked your interest in [Wezterm](https://wezfurlong.org/wezterm/index.html), you can use my configuration from [Wezterm configs](https://github.com/sageil/wezterm)
-
-New Issues:
-
-Please report other issues you encounter on the [Issues](https://github.com/sageil/crewai-docker-image/issues) including steps to reproduce them.
+- Report issues: https://github.com/sageil/crewai-docker-image/issues
 
 ## License
 
-This project is licensed under the [MIT License](https://github.com/sageil/crewai-docker-image/blob/main/LICENSE.md).
+- MIT: https://github.com/sageil/crewai-docker-image/blob/main/LICENSE.md

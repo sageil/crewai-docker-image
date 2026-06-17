@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
+
+set -euo pipefail
+
 YELLOW='\033[0;33m'
 RESET='\033[0m'
+
 newcrew() {
-  if [ -n "$1" ]; then
+  if [ -n "${1-}" ]; then
     PROJECT="$1"
-    deactivate
+    command -v deactivate >/dev/null && deactivate || true
     echo -e "${YELLOW} Creating $PROJECT${RESET}"
     crewai create crew "$PROJECT"
     cd "$PWD"/"$PROJECT" || exit

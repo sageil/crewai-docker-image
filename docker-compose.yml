@@ -1,0 +1,17 @@
+services:
+  crewai:
+    image: ${IMAGE:-sageil/crewai:latest}
+    container_name: crewai-dev
+    network_mode: host
+    stdin_open: true
+    tty: true
+    working_dir: /home/appuser/apps
+    environment:
+      P: ${CREWAI_PROJECT:-default_crew}
+    volumes:
+      - ./projects:/home/appuser/apps
+      - crewai-cache:/home/appuser/.cache
+    command: ["bash"]
+
+volumes:
+  crewai-cache:
