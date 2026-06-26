@@ -8,10 +8,13 @@
 ## TL;DR
 
 1. Build image:
+
 ```bash
 docker build --platform linux/amd64 --build-arg CREWAI=1.14.7 -t crewai:1.14.7 .
 ```
+
 2. Start container with a project mount:
+
 ```bash
 mkdir -p projects && \
 docker run -it --rm --network host \
@@ -20,7 +23,9 @@ docker run -it --rm --network host \
   crewai:1.14.7 \
   bash
 ```
+
 3. Inside container, open your project:
+
 ```bash
 v .
 crewai run
@@ -132,6 +137,7 @@ Assign `llm=myllm` in `Agent(...)` where needed.
 
 Recent and commonly used tags:
 
+- `1.15.0`
 - `1.14.7`
 - `1.14.6`
 - `1.14.3`
@@ -147,6 +153,7 @@ Recent and commonly used tags:
 - `1.7.0`
 
 Full version history is available on Docker Hub:
+
 - https://hub.docker.com/r/sageil/crewai/tags
 
 ## Known issues
