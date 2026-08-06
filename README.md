@@ -137,6 +137,7 @@ Assign `llm=myllm` in `Agent(...)` where needed.
 
 Recent and commonly used tags:
 
+- `1.15.12`
 - `1.15.11`
 - `1.15.10`
 - `1.15.9`
